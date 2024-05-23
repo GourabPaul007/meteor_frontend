@@ -9,6 +9,7 @@ const Login = (props) => {
   const [name, setName] = useState("");
   const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
+  const [wardnumber, setWardNumber] = useState("");
   const [role, setRole] = useState("admin");
   const [adminKey, setAdminKey] = useState("");
 
@@ -17,11 +18,6 @@ const Login = (props) => {
   const handleLoginUser = async (event) => {
     event.preventDefault();
     event.stopPropagation();
-
-    console.log("name:", name);
-    console.log("Password:", password);
-    console.log("Email:", email);
-    console.log("role:", role);
 
     const form = event.currentTarget;
     if (form.checkValidity() === false) return;
@@ -32,6 +28,7 @@ const Login = (props) => {
     urlencoded.append("password", password);
     urlencoded.append("email", email);
     urlencoded.append("role", role);
+    urlencoded.append("wardnumber", wardnumber);
 
     try {
       const response = await fetch("http://localhost:5000/api/users/login", {
@@ -50,6 +47,7 @@ const Login = (props) => {
         sessionStorage.setItem("email", email);
         sessionStorage.setItem("password", password);
         sessionStorage.setItem("role", role);
+        sessionStorage.setItem("wardnumber", wardnumber);
         setName("");
         setEmail("");
         setPassword("");
@@ -59,7 +57,7 @@ const Login = (props) => {
     } catch (error) {
       console.error("There was an error!", error);
     }
-  }
+  };
 
   const handleLoginAdmin = async (event) => {
     event.preventDefault();
@@ -98,12 +96,12 @@ const Login = (props) => {
     } catch (error) {
       console.error("There was an error!", error);
     }
-  }
+  };
 
   const handleLogin = async (event) => {
-    if(role == "admin") {
+    if (role == "admin") {
       await handleLoginAdmin(event);
-    }else{
+    } else {
       await handleLoginUser(event);
     }
   };
@@ -164,6 +162,22 @@ const Login = (props) => {
                   </>
                 )}
 
+                {role == "wardincharge" ? (
+                  <>
+                    <br />
+                    <Form.Group controlId="formBasicPassword">
+                      <Form.Label>Ward Number</Form.Label>
+                      <Form.Control
+                        required
+                        type="text"
+                        placeholder="Ward Number"
+                        value={wardnumber}
+                        onChange={(e) => setWardNumber(e.target.value)}
+                      />
+                    </Form.Group>
+                  </>
+                ) : null}
+
                 {role && role == "admin" ? (
                   <>
                     <br />
@@ -186,8 +200,12 @@ const Login = (props) => {
                   <Form.Select onChange={(e) => setRole(e.target.value)}>
                     {/* <option value="admin">Admin</option> */}
                     <option value="admin">Admin</option>
+                    <option value="backoffice">Back Office</option>
                     <option value="doctor">Doctor</option>
                     <option value="nurse">Nurse</option>
+                    <option value="wardincharge">Ward In Charge</option>
+                    <option value="clerk">Clerk</option>
+                    <option value="accounts">Accounts</option>
                     {/* <option value="3">Three</option> */}
                   </Form.Select>
                 </Form.Group>
