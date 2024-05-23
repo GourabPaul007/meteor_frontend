@@ -16,12 +16,13 @@ const Login = (props) => {
   const [msg, setMsg] = useState("");
 
   const handleLoginUser = async (event) => {
+    const form = event.currentTarget;
     event.preventDefault();
     event.stopPropagation();
-
-    const form = event.currentTarget;
-    if (form.checkValidity() === false) return;
-    setValidated(true);
+    if (form.checkValidity() === false) {
+      setValidated(true);
+      return;
+    }
 
     const urlencoded = new URLSearchParams();
     urlencoded.append("name", name);
@@ -60,16 +61,16 @@ const Login = (props) => {
   };
 
   const handleLoginAdmin = async (event) => {
+    const form = event.currentTarget;
     event.preventDefault();
     event.stopPropagation();
+    if (form.checkValidity() === false) {
+      setValidated(true);
+      return;
+    }
 
     console.log("AdminKey:", adminKey);
     console.log("role:", role);
-
-    const form = event.currentTarget;
-    if (form.checkValidity() === false) return;
-    setValidated(true);
-
     const urlencoded = new URLSearchParams();
     urlencoded.append("adminKey", adminKey);
     urlencoded.append("role", role);
@@ -113,7 +114,7 @@ const Login = (props) => {
           <Card>
             <Card.Body>
               <Card.Title>Login</Card.Title>
-              <Form validated={validated} onSubmit={handleLogin}>
+              <Form noValidate validated={validated} onSubmit={handleLogin}>
                 {role && role == "admin" ? null : (
                   <>
                     <br />

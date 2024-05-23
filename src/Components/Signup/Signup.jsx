@@ -16,12 +16,13 @@ const Signup = () => {
   const [msg, setMsg] = useState("");
 
   const handleSignup = async (event) => {
+    const form = event.currentTarget;
     event.preventDefault();
     event.stopPropagation();
-
-    const form = event.currentTarget;
-    if (form.checkValidity() === false) return;
-    setValidated(true);
+    if (form.checkValidity() === false) {
+      setValidated(true);
+      return;
+    }
 
     const urlencoded = new URLSearchParams();
     urlencoded.append("name", name);
@@ -65,7 +66,7 @@ const Signup = () => {
           <Card>
             <Card.Body>
               <Card.Title>Signup</Card.Title>
-              <Form validated={validated} onSubmit={handleSignup}>
+              <Form noValidate validated={validated} onSubmit={handleSignup}>
                 <br />
                 <Form.Group controlId="formBasicUsername">
                   <Form.Label>Username</Form.Label>
