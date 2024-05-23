@@ -26,7 +26,7 @@ const Navbar = (props) => {
   return (
     <nav className="navbar navbar-expand-lg navbar-light bg-light">
       <div className="container">
-        <Link className="navbar-brand" to="/">
+        <Link className="navbar-brand m-0 p-0" to="/" style={{fontSize:32}}>
           METEOR
         </Link>
         <button

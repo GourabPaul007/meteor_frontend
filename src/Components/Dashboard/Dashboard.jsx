@@ -198,7 +198,7 @@ const Dashboard = () => {
 
   return (
     <div className="d-flex flex-column mt-2 mx-10">
-      <h1 className="text-center">Dashboard</h1>
+      <h2 className="text-center">Dashboard</h2>
 
       {/* ADMIN QUERY COMPONENT */}
       {sessionStorage.getItem("role") == "admin" ? (

@@ -6,7 +6,7 @@ export const PatientsTable = (props) => {
     return (
         <>
         <div className="filters mb-3">
-        <div className="form-check form-check-inline d-flex justify-content-center flex-wrap mt-4">
+        <div className="form-check form-check-inline d-flex justify-content-center flex-wrap mt-0">
           {props.allColumns.map((col) => {
             return (
               <div
@@ -30,7 +30,7 @@ export const PatientsTable = (props) => {
           })}
         </div>
       </div>
-      <div className="m-4">
+      <div className="ms-4">
         <Table bordered responsive className="table table-striped">
           <thead>
             <tr>
